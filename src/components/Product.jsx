@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { ProductConsumer } from '../context'
 import { Link } from 'react-router-dom'
+import PropTypes from "prop-types";
 
 export default class product extends Component {
     render() {
@@ -54,6 +55,16 @@ export default class product extends Component {
     }
 }
 
+// Below is the code for cross checking the data CustomElementRegistry. There might be a possibility that we have some error with data (wrt their types) and below code ensures that we are entering proper values, else it throws an error in console which makes it easy for developers to debug the code
+product.propTypes = {
+    product:PropTypes.shape({
+        id:PropTypes.number,
+        img:PropTypes.string,
+        title:PropTypes.string,
+        price:PropTypes.number,
+        inCart:PropTypes.bool
+    })
+}
 const ProductWrapper = styled.div `
     .card{
         border-color:transparent;
@@ -98,9 +109,13 @@ const ProductWrapper = styled.div `
         font-size:1.5rem;
         ${'' /* Now we want our button to appear only when we hover, for other position it should be hidden, so we are translating it in right and bottom direction for 100% and it will come up only on hover */}
         transform:translate(100%,100%);
-        transition:all 0.5s linear;
+        transition:all 0.25s linear;
     }
     .img-container:hover .cart-btn{
         transform: translate(0,0);
+    }
+    .cart-btn:hover{
+        color: var(--mainBlue);
+        cursor: pointer
     }
 `
