@@ -63,7 +63,7 @@ product.propTypes = {
         title:PropTypes.string,
         price:PropTypes.number,
         inCart:PropTypes.bool
-    })
+    }).isRequired
 }
 const ProductWrapper = styled.div `
     .card{
