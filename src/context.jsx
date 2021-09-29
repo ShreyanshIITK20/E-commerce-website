@@ -22,11 +22,23 @@ class ProductProvider extends Component {
             return {products:tempProducts};
         });
     };
-    handleDetail = ()=>{
-        console.log("Hello from details")
+
+    // getItem function finds the product from the data.js correspoding to the id passed in
+    getItem = id => {
+        const product = this.state.products.find(item => item.id === id)
+        return product
     };
-    addToCart = ()=>{
-        console.log("Hello from add to cart")
+
+    // handleDetail function will be executed when we click on any certain product in product list, it will in turn execute getItem to find that product and display the corresponding details of the product from data.js
+    handleDetail = (id)=>{
+        const product = this.getItem(id);
+        this.setState(()=>{
+            return {detailProduct:product}
+        })
+    };
+
+    addToCart = (id)=>{
+        console.log('Hello from add to cart.id is '+id)
     };
 
     render() {
