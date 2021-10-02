@@ -32,7 +32,10 @@ export default class product extends Component {
                   <button
                     className="cart-btn"
                     disabled={inCart ? true : false}
-                    onClick={() => value.addToCart(id)}
+                    onClick={() => {
+                      value.addToCart(id);
+                      value.openModal(id);
+                      }}
                   >
                     {/* Here we are displaying a disabled button with "in cart" if item is already added, else we are displaying a working add to cart button with cart icon. For this we are using ternary operator */}
                     {inCart ? (

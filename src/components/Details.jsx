@@ -47,7 +47,10 @@ export default class Details extends Component {
                                     <button
                                         className="btn btn-outline-warning btn-lg ml-1"
                                         disabled={inCart?true:false}
-                                        onClick={()=>{value.addToCart(id)}}
+                                        onClick={()=>{
+                                            value.addToCart(id);
+                                            value.openModal(id);
+                                            }}
                                     >
                                         {inCart?"In cart":"Add to cart"}
                                     </button>
