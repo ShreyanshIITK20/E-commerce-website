@@ -9,7 +9,9 @@ class ProductProvider extends Component {
     state={
         products:[],
         detailProduct:detailProduct,
-        cart:[]
+        cart:[],
+        modalOpen:true,
+        modalProduct:detailProduct
     };
     componentDidMount(){
         this.setProducts();
@@ -59,13 +61,29 @@ class ProductProvider extends Component {
 
     };
 
+    openModal = id => {
+        const product = this.getItem(id);
+        this.setState(()=>{
+            return {modalProduct:product,modalOpen:true}
+        })
+    }
+
+    closeModal = () => {
+        this.setState(()=>{
+            return {modalOpen:false}
+        })
+    }
+
     render() {
         //this provider sits at the highest level in our application so it can be accessible from anywhere within in. So in this case we place it in our index.js file
         return (
             <ProductContext.Provider value={{
                 ...this.state,
                 handleDetail: this.handleDetail,
-                addToCart: this.addToCart
+                addToCart: this.addToCart,
+                openModal: this.openModal,
+                clsoeModal: this.closeModal
+
             }}>
                 {this.props.children}
             </ProductContext.Provider>
