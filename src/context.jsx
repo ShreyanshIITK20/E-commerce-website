@@ -92,7 +92,13 @@ class ProductProvider extends Component {
     }
 
     clearCart = () => {
-        console.log("cart cleared")
+        this.setState(()=>{
+            return { cart:[]};
+        },()=>{
+            // this is a callback function which sets the state back to its original state and also sets the totals to their original state
+            this.setProducts();
+            this.addTotals();
+        })
     }
 
     addTotals = () => {
