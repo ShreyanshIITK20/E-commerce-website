@@ -58,7 +58,8 @@ class ProductProvider extends Component {
                 return {products:tempProducts,cart:[...this.state.cart,product]};
             },
             ()=>{
-                console.log(this.state);
+                this.addTotals();
+                // this is the callback function whose function is to update the state's total value when we add some item to the cart
             }
         )
 
@@ -92,6 +93,23 @@ class ProductProvider extends Component {
 
     clearCart = () => {
         console.log("cart cleared")
+    }
+
+    addTotals = () => {
+        let subTotal = 0;
+        this.state.cart.map(item => (subTotal+=item.total))
+
+        const tempTax = subTotal*0.2;
+        const tax = parseFloat(tempTax.toFixed(2));
+        const total = subTotal + tax;
+
+        this.setState(()=>{
+            return {
+                cartSubtotal:subTotal,
+                cartTax:tax,
+                cartTotal:total
+            }
+        });
     }
 
     render() {
