@@ -79,11 +79,47 @@ class ProductProvider extends Component {
 
   //now we have some methods which are related to the functionality of cart
   increment = (id) => {
-    console.log("this is increment method");
+    let tempCart = [...this.state.cart];
+    const selectedProduct = tempCart.find( item => item.id === id);
+
+    const index = tempCart.indexOf(selectedProduct);
+    const product = tempCart[index];
+
+    // now increment the quantity of product by 1 and find new price by multiplying price of one item with number of items after incrementing
+    product.count += 1;
+    product.total = product.count * product.price;
+
+    this.setState( () => {
+      return {
+        cart: [...tempCart]
+      }
+    } , () => {
+      this.addTotals();
+    } )
   };
 
   decrement = (id) => {
-    console.log("this is decrement method");
+    let tempCart = [...this.state.cart];
+    const selectedProduct = tempCart.find( item => item.id === id);
+
+    const index = tempCart.indexOf(selectedProduct);
+    const product = tempCart[index];
+
+    // now decrement the quantity of product by 1 and find new price by multiplying price of one item with number of items after decrementing
+    if(product.count>1){
+      product.count -= 1;
+      product.total = product.count * product.price;
+
+      this.setState( () => {
+        return {
+          cart: [...tempCart]
+        }
+      } , () => {
+        this.addTotals();
+      } )  
+    }
+    else this.removeItem(id)
+    
   };
 
   removeItem = (id) => {
